@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "tsanachin"
+    }
+  },
+  "defaultProject": "tsanachin",
+  "cli": {
+    "analytics": "508853ca-122b-442d-ab77-39fc30b39596"
+  }
 }
