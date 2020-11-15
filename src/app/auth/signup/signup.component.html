@@ -4,12 +4,12 @@
 
 </section>
 
-<section class="signup-form" *ngIf="!isAuth && !linkFound">
+<section class="signup-form" *ngIf="!isAuth">
     
         <h2>Шинэ хэрэглэгчийн холбоос хүчингүй болсон байна</h2>
         
 </section>
-<section class="signup-form" *ngIf="!isAuth && userEmail">
+<section class="signup-form" *ngIf="!isAuth">
     <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" fxLayoutGap="10px" (ngSubmit)="onSubmit(f)">
         <h2>Шинэ хэрэглэгчийн бүртгэл</h2>
         <div class="welcome" fxLayout="column" fxLayout.gt-xs="row" fxLayoutGap.gt-xs="20px" fxLayoutAlign="center center">
@@ -78,10 +78,9 @@
                     type="email" 
                     matInput 
                     placeholder="Мэйл хаяг"
-                    [(ngModel)]="userEmail" 
+                    ngModel
                     name="email"
                     email
-                    disabled
                     required
                     #emailInput="ngModel">
                 <mat-error *ngIf="emailInput.hasError('required')">Мэйл хаяг хоосон байж болохгүй</mat-error>

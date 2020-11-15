@@ -1,5 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 import { NgForm } from '@angular/forms';
 
 
@@ -14,19 +13,14 @@ import { FirestoreService } from 'src/app/shared/firestore.service';
 })
 export class SignupComponent implements OnInit, OnDestroy {
   newUser!: NewUser;
-  userEmail = '';
   invitedUsersSubscription!: Subscription;
-  invitationId: string;
-  linkFound = false;
   public userAuth: Subscription;
   isAuth = false;
 
   constructor(
-    route: ActivatedRoute,
     public auth: AuthService, 
     private db: FirestoreService
   ) { 
-    this.invitationId = route.snapshot.params['invitationId'];
     this.userAuth = this.auth.user$.subscribe(user => {
       if(user && user.roles){
         this.isAuth = true;
@@ -37,18 +31,7 @@ export class SignupComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit(): void {
-    this.invitedUsersSubscription = this.db.doc$('invitedUsers/'+this.invitationId)
-    .subscribe((doc: NewUser | any) => {
-      this.newUser = doc;
-      if(doc) {
-        console.log('invitation found!');
-        this.linkFound = true
-        this.userEmail = doc.email;
-      } else {
-        this.linkFound = false;
-        this.userEmail = '';
-      }
-    });
+
   }
 
   onSubmit(form: NgForm) {
@@ -60,7 +43,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       nickname: form.value.nickname,
       phone: form.value.phone,
       position: form.value.position,
-      email: this.userEmail,
+      email: form.value.email,
       roles: this.newUser.roles,
       password: form.value.password,
       hint: form.value.hint,
