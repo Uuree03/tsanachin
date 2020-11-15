@@ -5,7 +5,11 @@
   "projects": {
     "tsanachin": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,6 +17,24 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "lodash",
+              "firebase",
+              "@angular/common/locales/fr",
+              "@angular/fire/firestore",
+              "lodash/dropRight",
+              "@firebase/app",
+              "@firebase/auth",
+              "@firebase/database",
+              "@firebase/firestore",
+              "@firebase/component",
+              "@firebase/util",
+              "@firebase/functions",
+              "@firebase/performance",
+              "@firebase/remote-config",
+              "file-saver",
+              "xlsx"
+          ],
             "outputPath": "dist/tsanachin",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -24,6 +46,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -39,7 +62,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -47,13 +69,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
                 }
               ]
             }
@@ -88,6 +110,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -123,6 +146,6 @@
   },
   "defaultProject": "tsanachin",
   "cli": {
-    "analytics": "508853ca-122b-442d-ab77-39fc30b39596"
+    "analytics": "1e51bbfe-0108-473d-9e63-d81efc2c867d"
   }
 }
