@@ -15,8 +15,8 @@
                 <button mat-menu-item (click)="goRouterLink('orders')" *ngIf="isAuth">Захиалга</button>
                 <button mat-menu-item (click)="goRouterLink('shipping')" *ngIf="isAuth">Хүргэлт</button>
             </mat-menu>
-            <button mat-button *ngIf="!isAuth"><a routerLink="/signup">Шинэ эрх</a></button>
-            <button mat-button *ngIf="!isAuth"><a routerLink="/login">Нэвтрэх</a></button>
+            <button mat-button (click)="goRouterLink('signup')" *ngIf="!isAuth">Шинэ эрх</button>
+            <button mat-button (click)="goRouterLink('login')" *ngIf="!isAuth">Нэвтрэх</button>
             <button mat-button *ngIf="isAuth" [matMenuTriggerFor]="userMenu"><a>{{ nickname }}</a><mat-icon>arrow_drop_down</mat-icon></button>
             <mat-menu #userMenu="matMenu">
                 <button mat-menu-item *ngIf="isAuth">Миний мэдээлэл</button>

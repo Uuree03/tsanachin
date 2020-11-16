@@ -12,16 +12,19 @@ import { FirestoreService } from 'src/app/shared/firestore.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit, OnDestroy {
-  newUser!: NewUser;
-  invitedUsersSubscription!: Subscription;
-  public userAuth: Subscription;
+  public authSubs: Subscription = new Subscription;
   isAuth = false;
+  roles = [{
+    admin: false,
+    editor: false,
+    subscriber: true
+  }]
 
   constructor(
     public auth: AuthService, 
     private db: FirestoreService
   ) { 
-    this.userAuth = this.auth.user$.subscribe(user => {
+    this.authSubs = this.auth.user$.subscribe(user => {
       if(user && user.roles){
         this.isAuth = true;
       } else {
@@ -44,7 +47,7 @@ export class SignupComponent implements OnInit, OnDestroy {
       phone: form.value.phone,
       position: form.value.position,
       email: form.value.email,
-      roles: this.newUser.roles,
+      roles: this.roles,
       password: form.value.password,
       hint: form.value.hint,
       registered: dt
@@ -54,7 +57,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.invitedUsersSubscription.unsubscribe();
+    this.authSubs.unsubscribe();
   }
 
 }
