@@ -34,7 +34,7 @@
               "@firebase/remote-config",
               "file-saver",
               "xlsx"
-          ],
+            ],
             "outputPath": "dist/tsanachin",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -140,6 +140,10 @@
               "devServerTarget": "tsanachin:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     }

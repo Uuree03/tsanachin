@@ -23,6 +23,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatChipsModule } from '@angular/material/chips';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
     imports: [
@@ -49,7 +50,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
         NgxMaterialTimepickerModule,
         MatChipsModule,
         MatRadioModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatExpansionModule
     ],
     exports: [
         MatButtonModule,
@@ -75,7 +77,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
         NgxMaterialTimepickerModule,
         MatChipsModule,
         MatRadioModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatExpansionModule
     ]
 })
 

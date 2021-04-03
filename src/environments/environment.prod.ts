@@ -1,13 +1,12 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: "AIzaSyBUPHJzfP-HLuZjmiSG8lc-ddV6D3HuM04",
-    authDomain: "tsanachinskier.firebaseapp.com",
-    databaseURL: "https://tsanachinskier.firebaseio.com",
-    projectId: "tsanachinskier",
-    storageBucket: "tsanachinskier.appspot.com",
-    messagingSenderId: "613271519227",
-    appId: "1:613271519227:web:badb89cb329691f704555e",
-    measurementId: "G-1FTR6681DM"
+    apiKey: "AIzaSyCL7EWFVVqSiDF6gNmff5xVP2Gb_UyhBkg",
+    authDomain: "tsanachin-club.firebaseapp.com",
+    projectId: "tsanachin-club",
+    storageBucket: "tsanachin-club.appspot.com",
+    messagingSenderId: "20507556856",
+    appId: "1:20507556856:web:f73f4c0f2d4fe843f7340d",
+    measurementId: "G-L943P2KG1E"
   }
 };

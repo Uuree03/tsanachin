@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "tsanachin-club": {
+      "hosting": {
+        "tsanachin": [
+          "tsanachin-club"
+        ]
+      }
+    }
+  }
+}

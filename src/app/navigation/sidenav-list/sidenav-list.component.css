@@ -7,3 +7,9 @@ a:hover, a:active {
     color:lightgray;
 }
 
+.nav-caption {
+  margin-left: 9px;
+}
+.expansion-header {
+  font-size: medium;
+}

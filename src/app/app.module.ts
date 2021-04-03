@@ -24,6 +24,19 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
 import { RegisterComponent } from './auth/register/register.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { LoginComponent } from './auth/login/login.component';
+import { WorkoutsComponent } from './workouts/workouts.component';
+import { LessonsComponent } from './lessons/lessons.component';
+import { ContactComponent } from './contact/contact.component';
+import { ClubComponent } from './club/club.component';
+import { UsComponent } from './club/us/us.component';
+import { MembersComponent } from './club/members/members.component';
+import { RulesComponent } from './club/rules/rules.component';
+import { CollaborationComponent } from './club/collaboration/collaboration.component';
+import { UserComponent } from './user/user.component';
+import { UserInfoComponent } from './user/user-info/user-info.component';
+import { UserWorkoutsComponent } from './user/user-workouts/user-workouts.component';
+import { UserMeasuresComponent } from './user/user-measures/user-measures.component';
+import { UserProgressComponent } from './user/user-progress/user-progress.component';
 
 
 
@@ -35,7 +48,20 @@ import { LoginComponent } from './auth/login/login.component';
     SidenavListComponent,
     RegisterComponent,
     SignupComponent,
-    LoginComponent
+    LoginComponent,
+    WorkoutsComponent,
+    LessonsComponent,
+    ContactComponent,
+    ClubComponent,
+    UsComponent,
+    MembersComponent,
+    RulesComponent,
+    CollaborationComponent,
+    UserComponent,
+    UserInfoComponent,
+    UserWorkoutsComponent,
+    UserMeasuresComponent,
+    UserProgressComponent
   ],
   imports: [
     BrowserModule,

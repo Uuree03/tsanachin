@@ -1,9 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-
-
 import { AuthService, NewUser } from '../auth.service';
-import { Subscription } from 'rxjs';
 import { FirestoreService } from 'src/app/shared/firestore.service';
 
 @Component({
@@ -11,17 +8,15 @@ import { FirestoreService } from 'src/app/shared/firestore.service';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit, OnDestroy {
+export class SignupComponent implements OnInit {
   newUser!: NewUser;
-  invitedUsersSubscription!: Subscription;
-  public userAuth: Subscription;
   isAuth = false;
 
   constructor(
-    public auth: AuthService, 
+    public auth: AuthService,
     private db: FirestoreService
-  ) { 
-    this.userAuth = this.auth.user$.subscribe(user => {
+  ) {
+    this.auth.user$.subscribe(user => {
       if(user && user.roles){
         this.isAuth = true;
       } else {
@@ -51,10 +46,6 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
 
     form.resetForm();
-  }
-
-  ngOnDestroy() {
-    this.invitedUsersSubscription.unsubscribe();
   }
 
 }
