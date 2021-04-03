@@ -11,6 +11,11 @@ import { FirestoreService } from 'src/app/shared/firestore.service';
 export class SignupComponent implements OnInit {
   newUser!: NewUser;
   isAuth = false;
+  roles = [{
+    admin: false,
+    editor: false,
+    subscriber: true
+  }]
 
   constructor(
     public auth: AuthService,
@@ -39,7 +44,7 @@ export class SignupComponent implements OnInit {
       phone: form.value.phone,
       position: form.value.position,
       email: form.value.email,
-      roles: this.newUser.roles,
+      roles: this.roles,
       password: form.value.password,
       hint: form.value.hint,
       registered: dt
