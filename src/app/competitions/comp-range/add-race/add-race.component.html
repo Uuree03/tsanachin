@@ -1,0 +1,80 @@
+<h2 mat-dialog-title>Ангилал нэм</h2>
+<mat-dialog-content class="mat-typography">
+  <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm">
+    <mat-form-field>
+        <input
+            type="text"
+            matInput
+            placeholder="Ангилал"
+            ngModel
+            name="title"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field class="dateField">
+      <mat-label>Огноо</mat-label>
+      <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="MM/DD/YYYY"
+          [(ngModel)]="date"
+          name="date"
+          required
+          disabled>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select
+            matInput
+            placeholder="Дараалал"
+            ngModel
+            name="order"
+            required>
+            <mat-option [value]="1">1</mat-option>
+            <mat-option [value]="2">2</mat-option>
+            <mat-option [value]="3">3</mat-option>
+            <mat-option [value]="4">4</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select
+          multiple
+          matInput
+          placeholder="Хүйс"
+          ngModel
+          name="gender"
+          required>
+          <mat-option value="Эр">Эр</mat-option>
+          <mat-option value="Эм">Эм</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <input
+            type="number"
+            matInput
+            placeholder="Зай"
+            ngModel
+            name="distance"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select
+            matInput
+            placeholder="Төрөл"
+            ngModel
+            name="type"
+            required>
+            <mat-option value="Цуваа">Цуваа</mat-option>
+            <mat-option value="Хөөх">Хөөх</mat-option>
+            <mat-option value="Бөөн">Бөөн</mat-option>
+            <mat-option value="Буухай">Буухай</mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Цуцал</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="f.invalid" (click)="onSubmit(f)">Нэм</button>
+</mat-dialog-actions>

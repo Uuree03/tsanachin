@@ -1,0 +1,8 @@
+<div id="modal-content-wrapper">
+  <h2>Хэрэглэгч устгах баталгаажуулалт</h2>
+  <p *ngIf="user">{{ user.lastName }} {{ user.firstName }}</p>
+  <footer id="modal-footer">
+      <button type="button" mat-raised-button color="primary" id="modal-action-button" (click)="deleteUser()">Устга</button>
+      <button type="button" mat-raised-button color="accent" id="modal-cancel-button" (click)="closeDialog()">Цуцал</button>
+  </footer>
+</div>

@@ -1,0 +1,92 @@
+<h2 mat-dialog-title>Тэмцээн нэм</h2>
+<mat-dialog-content class="mat-typography">
+  <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm">
+    <mat-form-field class="wideField">
+        <input
+            type="text"
+            matInput
+            placeholder="Тэмцээний нэр"
+            ngModel
+            name="name"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select
+            type="text"
+            matInput
+            placeholder="Спортын төрөл"
+            ngModel
+            name="typeId"
+            required>
+            <mat-option [value]="sport.id" *ngFor="let sport of sports">{{ sport.type }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field class="dateField">
+      <mat-label>Эхлэх огноо</mat-label>
+      <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="MM/DD/YYYY"
+          [(ngModel)]="startDate"
+          name="startDate"
+          required
+          disabled>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="dateField">
+      <mat-label>Дуусах огноо</mat-label>
+      <input
+          matInput
+          [matDatepicker]="pickerEnd"
+          placeholder="MM/DD/YYYY"
+          [(ngModel)]="endDate"
+          name="endDate"
+          required
+          disabled>
+      <mat-datepicker-toggle matSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+      <mat-datepicker #pickerEnd disabled="false"></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="wideField">
+        <input
+            type="text"
+            matInput
+            placeholder="Байршил"
+            ngModel
+            name="place"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field class="wideField">
+        <input
+            type="text"
+            matInput
+            placeholder="Зохион байгуулагч"
+            ngModel
+            name="organizer"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-slide-toggle color="primary" ngModel name="isJunior">Өсвөрийнх</mat-slide-toggle>
+    <mat-form-field>
+        <mat-select
+            type="text"
+            matInput
+            placeholder="Төлөв"
+            ngModel
+            name="status"
+            required>
+            <mat-option value="Төлөвлөгдсөн">Төлөвлөгдсөн</mat-option>
+            <mat-option value="Цуцлагдсан">Цуцлагдсан</mat-option>
+            <mat-option value="Хойшлогдсон">Хойшлогдсон</mat-option>
+            <mat-option value="Явагдсан">Явагдсан</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Цуцал</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="f.invalid || !startDate || !endDate" (click)="onSubmit(f)">Нэм</button>
+</mat-dialog-actions>

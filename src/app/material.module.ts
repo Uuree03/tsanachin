@@ -19,11 +19,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatChipsModule } from '@angular/material/chips';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
     imports: [
@@ -47,11 +47,11 @@ import {MatExpansionModule} from '@angular/material/expansion';
         MatTableModule,
         MatSortModule,
         MatPaginatorModule,
-        NgxMaterialTimepickerModule,
         MatChipsModule,
         MatRadioModule,
         MatSnackBarModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatSlideToggleModule
     ],
     exports: [
         MatButtonModule,
@@ -74,11 +74,11 @@ import {MatExpansionModule} from '@angular/material/expansion';
         MatTableModule,
         MatSortModule,
         MatPaginatorModule,
-        NgxMaterialTimepickerModule,
         MatChipsModule,
         MatRadioModule,
         MatSnackBarModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatSlideToggleModule
     ]
 })
 

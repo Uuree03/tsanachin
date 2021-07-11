@@ -14,7 +14,7 @@ import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { MaterialModule } from './material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './services/auth.service';
 import { AdminGuard } from './auth/admin.guard';
 import { EditorGuard } from './auth/editor.guard';
 
@@ -37,6 +37,25 @@ import { UserInfoComponent } from './user/user-info/user-info.component';
 import { UserWorkoutsComponent } from './user/user-workouts/user-workouts.component';
 import { UserMeasuresComponent } from './user/user-measures/user-measures.component';
 import { UserProgressComponent } from './user/user-progress/user-progress.component';
+import { CompetitionsComponent } from './competitions/competitions.component';
+import { AddCompetitionComponent } from './competitions/add-competition/add-competition.component';
+import { ViewCompetitionComponent } from './competitions/view-competition/view-competition.component';
+import { CompApplicationComponent } from './competitions/comp-application/comp-application.component';
+import { AddApplicationMemberComponent } from './competitions/add-application-member/add-application-member.component';
+import { EditApplicationMemberComponent } from './competitions/edit-application-member/edit-application-member.component';
+import { EditCompetitionComponent } from './competitions/edit-competition/edit-competition.component';
+import { AdminComponent } from './admin/admin.component';
+import { SportsComponent } from './admin/sports/sports.component';
+import { CloudService } from './services/cloud.service';
+import { UsersComponent } from './admin/users/users.component';
+import { EditUserComponent } from './admin/users/edit-user/edit-user.component';
+import { ViewUserComponent } from './admin/users/view-user/view-user.component';
+import { DeleteUserComponent } from './admin/users/delete-user/delete-user.component';
+import { ChangeUserPasswordComponent } from './admin/users/change-user-password/change-user-password.component';
+import { AddSportComponent } from './admin/sports/add-sport/add-sport.component';
+import { CompRangeComponent } from './competitions/comp-range/comp-range.component';
+import { AddRaceComponent } from './competitions/comp-range/add-race/add-race.component';
+import { EditRaceComponent } from './competitions/comp-range/edit-race/edit-race.component';
 
 
 
@@ -61,7 +80,25 @@ import { UserProgressComponent } from './user/user-progress/user-progress.compon
     UserInfoComponent,
     UserWorkoutsComponent,
     UserMeasuresComponent,
-    UserProgressComponent
+    UserProgressComponent,
+    CompetitionsComponent,
+    AddCompetitionComponent,
+    ViewCompetitionComponent,
+    CompApplicationComponent,
+    AddApplicationMemberComponent,
+    EditApplicationMemberComponent,
+    EditCompetitionComponent,
+    AdminComponent,
+    SportsComponent,
+    UsersComponent,
+    EditUserComponent,
+    ViewUserComponent,
+    DeleteUserComponent,
+    ChangeUserPasswordComponent,
+    AddSportComponent,
+    CompRangeComponent,
+    AddRaceComponent,
+    EditRaceComponent
   ],
   imports: [
     BrowserModule,
@@ -80,9 +117,10 @@ import { UserProgressComponent } from './user/user-progress/user-progress.compon
     ReactiveFormsModule
   ],
   providers: [
-    AuthService, 
-    AdminGuard, 
-    EditorGuard
+    AuthService,
+    AdminGuard,
+    EditorGuard,
+    CloudService
   ],
   bootstrap: [AppComponent]
 })

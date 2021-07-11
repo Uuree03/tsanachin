@@ -1,0 +1,37 @@
+<div fxLayoutAlign="center center" fxLayoutGap="20px">
+  <button mat-icon-button color="primary" (click)="showAddDialog()"><mat-icon>add</mat-icon></button>
+</div>
+<mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="icon">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Тэмдэг</mat-header-cell>
+      <mat-cell *matCellDef="let element"> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Спорт</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.type }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="english">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Англи нэр</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.english }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="image">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Зураг</mat-header-cell>
+      <mat-cell *matCellDef="let element"> </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action" stickyEnd>
+      <mat-header-cell *matHeaderCellDef class="align-right" mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="align-right">
+        <button mat-button [matMenuTriggerFor]="userMenu"><mat-icon>more_vert</mat-icon></button>
+            <mat-menu #userMenu="matMenu">
+            </mat-menu>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  </mat-table>

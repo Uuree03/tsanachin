@@ -1,0 +1,13 @@
+h2 {
+  text-align: center;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+.align-right{
+  display: flex;
+  justify-content: flex-end;
+}
+.mat-column-action {
+  flex: 0 0 40px !important;
+  width: 40px !important;
+}

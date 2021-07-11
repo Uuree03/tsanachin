@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Спортын төрөл нэм</h2>
+<mat-dialog-content class="mat-typography">
+  <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <mat-form-field>
+        <input
+            type="text"
+            matInput
+            placeholder="Төрөл"
+            ngModel
+            name="name"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field>
+        <input
+            type="text"
+            matInput
+            placeholder="Англиар"
+            ngModel
+            name="english"
+            required>
+    </mat-form-field>
+
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Цуцал</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="f.invalid" (click)="onSubmit(f)">Нэм</button>
+</mat-dialog-actions>

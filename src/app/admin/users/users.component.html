@@ -1,0 +1,63 @@
+<div fxLayoutAlign="center center" fxLayoutGap="20px">
+  <mat-form-field>
+      <input matInput type="text" #filter (keyup)="doFilter(filter.value)" placeholder="Шүүлт">
+  </mat-form-field>
+</div>
+<mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="nickname">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Хэрэглэгч</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.nickname }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Овог</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.lastName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Нэр</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.firstName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Утас</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.phone }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Мэйл хаяг</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.email }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="roles">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Эрхүүд</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <span matTooltip="Системийн админ" *ngIf="element.roles.admin"><mat-icon>engineering</mat-icon></span>
+        <span matTooltip="Захирлын туслах" *ngIf="element.roles.assistant"><mat-icon>support</mat-icon></span>
+        <span matTooltip="Нягтлан" *ngIf="element.roles.accountant"><mat-icon>calculate</mat-icon></span>
+        <span matTooltip="Дотоод хэрэглэгч" *ngIf="element.roles.localUser"><mat-icon>badge</mat-icon></span>
+        <span matTooltip="Мэдээлэл оруулна" *ngIf="element.roles.editor"><mat-icon>edit</mat-icon></span>
+        <span matTooltip="Мэдээлэл харна" *ngIf="element.roles.subscriber"><mat-icon>visibility</mat-icon></span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action" stickyEnd>
+      <mat-header-cell *matHeaderCellDef class="align-right" mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="align-right">
+        <button mat-button [matMenuTriggerFor]="userMenu"><mat-icon>more_vert</mat-icon></button>
+            <mat-menu #userMenu="matMenu">
+              <button mat-menu-item (click)="showViewDialog(element.id)">Үзэх</button>
+              <button mat-menu-item (click)="showEditDialog(element)" *ngIf="auth.isAdmin">Засах</button>
+              <button mat-menu-item (click)="showPasswordUpdateDialog(element)" *ngIf="auth.isAdmin">Нууг үг соль</button>
+              <button mat-menu-item (click)="showDeleteDialog(element)" *ngIf="auth.isAdmin">Устгах</button>
+            </mat-menu>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSize]="20" [pageSizeOptions]="[20, 50]">
+  </mat-paginator>

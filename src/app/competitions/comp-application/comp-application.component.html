@@ -1,0 +1,77 @@
+<section *ngIf="competition">
+  <h2>{{ competition.name }}</h2>
+  <h3>{{ competition.place }} - {{ competition.startDate.toDate() | date : 'yyyy/MM/dd' }}</h3>
+
+  <h2>Мэдүүлэг</h2>
+
+  <mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="photo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Зураг</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.photo }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="registry">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Регистр</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.registry }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Овог</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.lastName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Нэр</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.firstName }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="age">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Нас</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.age }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="gender">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Хүйс</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.gender }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="rank">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Спортын цол, зэрэг</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.rank }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="range">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Оролцох ангилал</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <div>
+          <p class="race" *ngFor="let race of element.rangeTitles">{{ race }}</p>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="health">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Эрүүл мэнд</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.health }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef class="align-right" mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let element" class="align-right">
+        <button mat-icon-button [matMenuTriggerFor]="userMenu"><mat-icon>more_vert</mat-icon></button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item (click)="viewCompetition(element)">Үзэх</button>
+          <button mat-menu-item (click)="viewApplication(element)">Мэдүүлэг</button>
+          <button mat-menu-item (click)="showEditDialog(element.id)">Засах</button>
+        </mat-menu>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSize]="20" [pageSizeOptions]="[20, 30, 40, 80]">
+  </mat-paginator>
+  <button mat-raised-button color="primary" (click)="showAddDialog()"><mat-icon>add</mat-icon>Нэм</button>
+</section>

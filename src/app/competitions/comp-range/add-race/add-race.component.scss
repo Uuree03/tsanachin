@@ -1,0 +1,7 @@
+.dateField {
+  width: 150px;
+}
+::ng-deep.mat-form-field-disabled input,  .mat-form-field-disabled mat-select
+{
+  -webkit-text-fill-color:dodgerblue;
+}

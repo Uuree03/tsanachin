@@ -3,7 +3,8 @@ import { NgForm } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { FirestoreService } from 'src/app/shared/firestore.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
+import { NewUser } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,7 @@ export class RegisterComponent implements OnInit {
   admin = false;
   editor = false;
   subscriber = true;
-  
+
 
   constructor(private db: FirestoreService,
     private snack: MatSnackBar) { }
@@ -27,15 +28,15 @@ export class RegisterComponent implements OnInit {
 
     // Check if email is not already invited and user created
 
-    this.db.colWithId$('invitedUsers', (ref: { where: (arg0: string, arg1: string, arg2: any) => any; }) => ref.where('email', '==', form.value.email)).pipe(
+    this.db.colWithId$('invitedUsers', ref => ref.where('email', '==', form.value.email)).pipe(
       take(1)).subscribe((doc: any[]) => {
       if(!doc.length) {
         // Not invited yet
-        this.db.colWithId$('users', (ref: { where: (arg0: string, arg1: string, arg2: any) => any; }) => ref.where('email', '==', form.value.email)).pipe(
+        this.db.colWithId$('users', ref => ref.where('email', '==', form.value.email)).pipe(
           take(1)).subscribe((users: any[]) => {
           if(!users.length){
-            // No user exist with same 
-            this.db.add('invitedUsers', {
+            // No user exist with same
+            let newInvitation: NewUser = {
               name: form.value.name,
               email: form.value.email,
               roles: {
@@ -43,11 +44,13 @@ export class RegisterComponent implements OnInit {
                 editor: this.editor,
                 subscriber: this.subscriber
               }
+            };
+            this.db.add('invitedUsers', newInvitation).then(() => {
+              form.resetForm({
+                adminCheck: false,
+                editorCheck: false,
+                subscriberCheck: true});
             });
-            form.resetForm({ 
-              adminCheck: false,
-              editorCheck: false,
-              subscriberCheck: true});
           } else {
             // Notify that user already exists
         this.showMessage('Уг хэрэглэгч бүртгэгдсэн байна');

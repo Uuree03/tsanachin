@@ -1,0 +1,31 @@
+.mat-column-roles {
+  flex: 0 0 20% !important;
+  width: 20% !important;
+}
+.mat-column-department {
+  flex: 0 0 80px !important;
+  width: 80px !important;
+}
+.mat-column-email {
+  flex: 0 0 200px !important;
+  width: 200px !important;
+}
+.align-right{
+  display: flex;
+  justify-content: flex-end;
+}
+.filterSelection {
+  min-width: 150px;
+  max-width: 400px;
+  width: 350px;
+}
+.mat-row {
+  min-height: 30px !important;
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}

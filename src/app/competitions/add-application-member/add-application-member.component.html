@@ -1,0 +1,101 @@
+<h2 mat-dialog-title>Тэмцээн нэм</h2>
+<mat-dialog-content class="mat-typography">
+  <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm">
+    <mat-form-field>
+        <input
+            type="text"
+            matInput
+            placeholder="Регистр"
+            ngModel
+            name="registry"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field>
+        <input
+            type="text"
+            matInput
+            placeholder="Овог"
+            ngModel
+            name="lastName"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field>
+        <input
+            type="text"
+            matInput
+            placeholder="Нэр"
+            ngModel
+            name="firstName"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field>
+        <input
+            type="number"
+            matInput
+            placeholder="Нас"
+            ngModel
+            name="age"
+            spellcheck="false"
+            required>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select
+            matInput
+            placeholder="Хүйс"
+            [(ngModel)]="gender"
+            name="gender"
+            (ngModelChange)="onGenderSelected()"
+            required>
+            <mat-option value="Эр">Эр</mat-option>
+            <mat-option value="Эм">Эм</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select
+            matInput
+            placeholder="Цол зэрэг"
+            ngModel
+            name="rank"
+            required>
+            <mat-option value="ОУХМ">ОУ Хэмжээний Мастер</mat-option>
+            <mat-option value="СМ">Спортын Мастер</mat-option>
+            <mat-option value="I">I зэрэг</mat-option>
+            <mat-option value="II">II зэрэг</mat-option>
+            <mat-option value="III">III зэрэг</mat-option>
+            <mat-option value="-">-</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="range">
+        <mat-select
+            multiple
+            matInput
+            placeholder="Оролцох ангилал"
+            ngModel
+            name="range"
+            (selectionChange)="onRangeSelected($event)"
+            required>
+            <mat-option [value]="race.id" *ngFor="let race of range">{{ race.title }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-select
+            matInput
+            placeholder="Эрүүл мэнд"
+            ngModel
+            name="health"
+            required>
+            <mat-option value="Эрүүл">Эрүүл</mat-option>
+            <mat-option value="Эмчилгээтэй">Эмчилгээтэй</mat-option>
+            <mat-option value="Өвчтэй">Өвчтэй</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+</form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Цуцал</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" [disabled]="f.invalid" (click)="onSubmit(f)">Нэм</button>
+</mat-dialog-actions>

@@ -1,0 +1,73 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /invitedUsers/{invitedUserId} {
+      function getRole(role) {
+        return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.roles[role]
+      }
+      allow read;
+      allow write: if getRole('admin');
+    }
+
+    match /users/{userId} {
+      function getRole(role) {
+        return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.roles[role]
+      }
+      allow read: if request.auth.uid != null;
+      allow create: if request.auth.uid != null;
+      allow update: if getRole('admin') || request.auth.uid == userId;
+      allow delete: if getRole('admin');
+    }
+
+    match /sports/{sportId} {
+      function getRole(role) {
+        return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.roles[role]
+      }
+      allow read;
+      allow write: if getRole('admin');
+    }
+
+    match /preferences/{userId} {
+      function getRole(role) {
+        return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.roles[role]
+      }
+      allow read;
+      allow create: if request.auth.uid != null;
+      allow update: if request.auth.uid == userId;
+      allow delete: if getRole('admin');
+    }
+
+    match /competitions/{competitionId} {
+      function getRole(role) {
+        return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.roles[role]
+      }
+      allow read;
+      allow create: if request.auth.uid != null;
+      allow update: if getRole('admin') || request.auth.uid == competitionId;
+      allow delete: if getRole('admin');
+
+      match /application/{applicationId} {
+        function getRole(role) {
+          return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.roles[role]
+        }
+        allow read;
+        allow create: if request.auth.uid != null;
+        allow update: if getRole('admin') || request.auth.uid == applicationId;
+        allow delete: if getRole('admin');
+      }
+
+      match /range/{rangeId} {
+        function getRole(role) {
+          return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.roles[role]
+        }
+        allow read;
+        allow create: if request.auth.uid != null;
+        allow update: if getRole('admin') || request.auth.uid == rangeId;
+        allow delete: if getRole('admin');
+      }
+
+    }
+
+  }
+}

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService, NewUser } from '../auth.service';
-import { FirestoreService } from 'src/app/shared/firestore.service';
+import { AuthService } from '../../services/auth.service';
+import { FirestoreService } from 'src/app/services/firestore.service';
+import { NewUser, RegData } from 'src/app/models/user.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -9,18 +11,19 @@ import { FirestoreService } from 'src/app/shared/firestore.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  invitationId: string;
   newUser!: NewUser;
+  userEmail = '';
+  linkFound = false;
   isAuth = false;
-  roles = [{
-    admin: false,
-    editor: false,
-    subscriber: true
-  }]
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     public auth: AuthService,
     private db: FirestoreService
   ) {
+    this.invitationId = route.snapshot.params['invitationId'];
     this.auth.user$.subscribe(user => {
       if(user && user.roles){
         this.isAuth = true;
@@ -31,26 +34,40 @@ export class SignupComponent implements OnInit {
    }
 
   ngOnInit(): void {
-
+    this.db.doc$<NewUser>('invitedUsers/'+this.invitationId)
+    .subscribe((doc: NewUser) => {
+      this.newUser = doc;
+      if(doc) {
+        // console.log('invitation found!');
+        this.linkFound = true
+        this.userEmail = doc.email;
+      } else {
+        this.linkFound = false;
+        this.userEmail = '';
+      }
+    });
   }
 
   onSubmit(form: NgForm) {
     const dt = new Date();
 
-    this.auth.createUser({
+    const newReg: RegData = {
+      invitationId: this.invitationId,
       lastName: form.value.lastName,
       firstName: form.value.firstName,
       nickname: form.value.nickname,
       phone: form.value.phone,
       position: form.value.position,
-      email: form.value.email,
-      roles: this.roles,
+      email: this.userEmail,
+      roles: this.newUser.roles,
       password: form.value.password,
       hint: form.value.hint,
       registered: dt
-    });
-
-    form.resetForm();
+    };
+    this.auth.createUser(newReg);
+    setTimeout(()=>{
+      this.router.navigate(['']);
+    }, 1000);
   }
 
 }

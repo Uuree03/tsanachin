@@ -10,6 +10,7 @@
           <button mat-button (click)="goRouterLink('admin')" *ngIf="isAdmin">Админ</button>
           <button mat-button (click)="goRouterLink('workouts')">Бэлтгэл</button>
           <button mat-button (click)="goRouterLink('lessons')">Сургалт</button>
+          <button mat-button (click)="goRouterLink('competitions')">Тэмцээн</button>
           <button mat-button (click)="goRouterLink('contact')">Харилцаа</button>
           <button mat-button [matMenuTriggerFor]="productSub">Клуб<mat-icon>arrow_drop_down</mat-icon></button>
             <mat-menu #productSub="matMenu">
