@@ -41,8 +41,8 @@ import { CompetitionsComponent } from './competitions/competitions.component';
 import { AddCompetitionComponent } from './competitions/add-competition/add-competition.component';
 import { ViewCompetitionComponent } from './competitions/view-competition/view-competition.component';
 import { CompApplicationComponent } from './competitions/comp-application/comp-application.component';
-import { AddApplicationMemberComponent } from './competitions/add-application-member/add-application-member.component';
-import { EditApplicationMemberComponent } from './competitions/edit-application-member/edit-application-member.component';
+import { AddApplicationMemberComponent } from './competitions/comp-application/add-application-member/add-application-member.component';
+import { EditApplicationMemberComponent } from './competitions/comp-application/edit-application-member/edit-application-member.component';
 import { EditCompetitionComponent } from './competitions/edit-competition/edit-competition.component';
 import { AdminComponent } from './admin/admin.component';
 import { SportsComponent } from './admin/sports/sports.component';
@@ -56,6 +56,7 @@ import { AddSportComponent } from './admin/sports/add-sport/add-sport.component'
 import { CompRangeComponent } from './competitions/comp-range/comp-range.component';
 import { AddRaceComponent } from './competitions/comp-range/add-race/add-race.component';
 import { EditRaceComponent } from './competitions/comp-range/edit-race/edit-race.component';
+import { UploadPortraitComponent } from './competitions/comp-application/upload-portrait/upload-portrait.component';
 
 
 
@@ -98,7 +99,8 @@ import { EditRaceComponent } from './competitions/comp-range/edit-race/edit-race
     AddSportComponent,
     CompRangeComponent,
     AddRaceComponent,
-    EditRaceComponent
+    EditRaceComponent,
+    UploadPortraitComponent
   ],
   imports: [
     BrowserModule,

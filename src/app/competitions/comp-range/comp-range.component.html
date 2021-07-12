@@ -47,5 +47,5 @@
 
   <mat-paginator [pageSize]="20" [pageSizeOptions]="[20, 30, 40, 80]">
   </mat-paginator>
-  <button mat-raised-button color="primary" (click)="showAddDialog()"><mat-icon>add</mat-icon>Нэм</button>
+  <button mat-raised-button color="primary" (click)="showAddDialog()" *ngIf="auth.isAdmin"><mat-icon>add</mat-icon>Нэм</button>
 </section>

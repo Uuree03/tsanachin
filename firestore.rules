@@ -53,7 +53,7 @@ service cloud.firestore {
         }
         allow read;
         allow create: if request.auth.uid != null;
-        allow update: if getRole('admin') || request.auth.uid == applicationId;
+        allow update: if getRole('admin') || request.auth.uid == resource.data.createdId;
         allow delete: if getRole('admin');
       }
 

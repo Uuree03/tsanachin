@@ -50,6 +50,7 @@ export class AddApplicationMemberComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     const newMember: CompetitionApplication = {
+      competitionId: this.competitionId,
       registry: form.value.registry,
       lastName: form.value.lastName,
       firstName: form.value.firstName,

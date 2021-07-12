@@ -20,6 +20,7 @@ export interface Competition {
 
 export interface CompetitionApplication {
   id?: string;
+  competitionId: string;
   registry: string
   lastName: string;
   firstName: string;
@@ -29,6 +30,10 @@ export interface CompetitionApplication {
   range: string[];
   rangeTitles: string[];
   health: string;
+  photoURL?: string;
+  uploadedBy?: string;
+  uploadedId?: string;
+  uploadedAt?: any;
   createdAt?: any;
   createdBy?: string;
   createdId?: string;

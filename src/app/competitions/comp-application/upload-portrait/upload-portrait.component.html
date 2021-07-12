@@ -1,0 +1,27 @@
+<div mat-dialog-title class="welcome" fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center">
+  <h3>{{doc.lastName}} {{doc.firstName}}</h3>
+</div>
+<mat-dialog-content class="mat-typography">
+  <form fxLayout="column" fxLayoutAlign="center center" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <br>
+    <p>3x4 харьцаатай цээж зураг оруулна</p>
+    <section fxLayout="column" fxLayoutAlign="center center">
+      <mat-card class="uploader">
+        <h3>Цээж зураг</h3>
+        <div fxLayout fxLayoutGap="20px" fxLayoutAlign="start center">
+          <button type="button" mat-raised-button color="primary" onclick="document.getElementById('getFile').click()"><mat-icon>file_upload</mat-icon> Файл сонго</button>
+          <p class="file-name">{{ fileName }}</p>
+        </div>
+      <input type='file' #fileInput id="getFile" style="display:none" (change)="onFileChange($event)">
+      </mat-card>
+    </section>
+    <div class="passport" *ngIf="imageURL">
+        <img [src]="imageURL" alt="Image from AngularFireStorage">
+    </div>
+    <br>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end" fxLayoutGap="20px">
+  <button mat-raised-button color="primary" id="modal-action-button" [disabled]="f.invalid || !downloadURL" (click)="onSubmit(f)">Оруул</button>
+  <button type="button" mat-raised-button color="accent" id="modal-cancel-button" (click)="closeDialog()">Цуцал</button>
+</mat-dialog-actions>

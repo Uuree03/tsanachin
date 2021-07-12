@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, HostListener, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,9 +9,11 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ColumnDef } from 'src/app/models/table.model';
 import { Competition, CompetitionApplication, Race } from 'src/app/models/competion.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EditApplicationMemberComponent } from '../edit-application-member/edit-application-member.component';
-import { AddApplicationMemberComponent } from '../add-application-member/add-application-member.component';
+import { EditApplicationMemberComponent } from './edit-application-member/edit-application-member.component';
+import { AddApplicationMemberComponent } from './add-application-member/add-application-member.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UploadPortraitComponent } from './upload-portrait/upload-portrait.component';
+import {jsPDF} from 'jspdf';
 
 @Component({
   selector: 'app-comp-application',
@@ -78,7 +80,8 @@ export class CompApplicationComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
-    this.db.colWithId$<CompetitionApplication>('competitions/'+this.competitionId+'/application', ref => ref.orderBy('firstName')).subscribe(
+    this.db.colWithId$<CompetitionApplication>('competitions/'+this.competitionId+'/application',
+    ref => ref.orderBy('gender').orderBy('age')).subscribe(
       (items: CompetitionApplication[]) => {
         this.dataSource.data = items;
       }
@@ -110,12 +113,20 @@ export class CompApplicationComponent implements OnInit, AfterViewInit {
     this.router.navigate(['competitions/'+doc.id+'/application']);
   }
 
-  showEditDialog(doc: Competition) {
+  showEditDialog(doc: CompetitionApplication) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = doc;
     dialogConfig.disableClose = false;
-    dialogConfig.width = (this.screenWidth > 800 ? 700 : this.screenWidth - 20) + 'px';
+    dialogConfig.width = (this.screenWidth > 800 ? 500 : this.screenWidth - 12) + 'px';
     this.matDialog.open(EditApplicationMemberComponent, dialogConfig);
+  }
+
+  showPortraitDialog(doc: CompetitionApplication) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = doc;
+    dialogConfig.disableClose = false;
+    dialogConfig.width = (this.screenWidth > 600 ? 560 : this.screenWidth - 20) + 'px';
+    this.matDialog.open(UploadPortraitComponent, dialogConfig);
   }
 
   showAddDialog() {
@@ -131,6 +142,60 @@ export class CompApplicationComponent implements OnInit, AfterViewInit {
       });
     }
   }
+
+  public downloadAsPDF() {
+    const doc = new jsPDF();
+
+    let exportHTML = `<h1>Sample Data</h1>
+
+    <table>
+    <tr>
+      <th>Company</th>
+      <th>Contact</th>
+      <th>Country</th>
+    </tr>
+    <tr>
+      <td>dfadfasdfsdf</td>
+      <td>Maria Anders</td>
+      <td>Germany</td>
+    </tr>
+    <tr>
+      <td>Centro comercial Moctezuma</td>
+      <td>Francisco Chang</td>
+      <td>Mexico</td>
+    </tr>
+    <tr>
+      <td>Ernst Handel</td>
+      <td>Roland Mendel</td>
+      <td>Austria</td>
+    </tr>
+    <tr>
+      <td>Island Trading</td>
+      <td>Helen Bennett</td>
+      <td>UK</td>
+    </tr>
+    <tr>
+      <td>Laughing Bacchus Winecellars</td>
+      <td>Yoshi Tannamuri</td>
+      <td>Canada</td>
+    </tr>
+    <tr>
+      <td>Magazzini Alimentari Riuniti</td>
+      <td>Giovanni Rovelli</td>
+      <td>Italy</td>
+    </tr>`
+
+    doc.html(exportHTML, {
+      callback: function (doc) {
+        doc.save();
+      },
+      x: 10,
+      y: 10
+   });
+
+    doc.save('tableToPdf.pdf');
+  }
+
 
 }
 
