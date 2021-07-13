@@ -14,6 +14,7 @@ import { AddApplicationMemberComponent } from './add-application-member/add-appl
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UploadPortraitComponent } from './upload-portrait/upload-portrait.component';
 import {jsPDF} from 'jspdf';
+import { BinaryFontsService } from 'src/app/services/binary-fonts.service';
 
 @Component({
   selector: 'app-comp-application',
@@ -44,7 +45,8 @@ export class CompApplicationComponent implements OnInit, AfterViewInit {
     private db: FirestoreService,
     public auth: AuthService,
     private router: Router,
-    private snack: MatSnackBar
+    private snack: MatSnackBar,
+    private fonts: BinaryFontsService
     ) {
       this.competitionId = this.route.snapshot.params['competitionId'];
       this.db.doc$<Competition>('competitions/'+this.competitionId).subscribe((doc: Competition) => {
@@ -145,55 +147,66 @@ export class CompApplicationComponent implements OnInit, AfterViewInit {
 
   public downloadAsPDF() {
     const doc = new jsPDF();
+    var gap = 5;
+    var cardX = 20;
+    var cardY = 23+gap, x, y, s = 4.5, row = 0;
+    var cardH = 40;
 
-    let exportHTML = `<h1>Sample Data</h1>
+    const myFont = this.fonts.arial;
 
-    <table>
-    <tr>
-      <th>Company</th>
-      <th>Contact</th>
-      <th>Country</th>
-    </tr>
-    <tr>
-      <td>dfadfasdfsdf</td>
-      <td>Maria Anders</td>
-      <td>Germany</td>
-    </tr>
-    <tr>
-      <td>Centro comercial Moctezuma</td>
-      <td>Francisco Chang</td>
-      <td>Mexico</td>
-    </tr>
-    <tr>
-      <td>Ernst Handel</td>
-      <td>Roland Mendel</td>
-      <td>Austria</td>
-    </tr>
-    <tr>
-      <td>Island Trading</td>
-      <td>Helen Bennett</td>
-      <td>UK</td>
-    </tr>
-    <tr>
-      <td>Laughing Bacchus Winecellars</td>
-      <td>Yoshi Tannamuri</td>
-      <td>Canada</td>
-    </tr>
-    <tr>
-      <td>Magazzini Alimentari Riuniti</td>
-      <td>Giovanni Rovelli</td>
-      <td>Italy</td>
-    </tr>`
+    doc.addFileToVFS("Arial.ttf", myFont);
+    doc.addFont("Arial.ttf", "Arial", "normal");
+    doc.setFont("Arial");
 
-    doc.html(exportHTML, {
-      callback: function (doc) {
-        doc.save();
-      },
-      x: 10,
-      y: 10
-   });
+    doc.setFontSize(12);
+    doc.text('Цаначин клубын тамирчдын мэдүүлэг', 105, 15, { align: 'center'});
+    doc.setFontSize(10);
+    const title = this.competition.dateRange + ' | ' + this.competition.place + ' | ' + this.competition.shortName
+    doc.text(title, 105, 20, { align: 'center'});
+    doc.line(20, 23, 190, 23);
 
-    doc.save('tableToPdf.pdf');
+
+    this.dataSource.data.forEach( (profile, index) => {
+      let n = index+1;
+      let isOdd = n % 2 == 1 ? true : false;
+      if (isOdd) {
+        cardX = 20;
+        cardY = 23+gap+(cardH+gap)*row;
+        row ++;
+      } else {
+        cardX = 115;
+      }
+      // console.log(row, cardX, cardY, profile.firstName);
+      let photoURL = profile.photoURL ? profile.lastName.substring(0, 1)+'.'+profile.firstName : 'portrait_holder';
+      // console.log(photoURL);
+      doc.addImage('assets/'+photoURL+'.jpg', 'JPEG', cardX, cardY, cardH/4*3, cardH);
+      doc.setFontSize(9);
+      doc.setTextColor(100);
+      x = cardX+56;
+      y = cardY+3;
+      doc.text('Регистр:', x, y, { align: 'right'});
+      doc.text('Овог:', x, y+s, { align: 'right'});
+      doc.text('Нэр:', x, y+s*2, { align: 'right'});
+      doc.text('Нас:', x, y+s*3, { align: 'right'});
+      doc.text('Хүйс:', x, y+s*4, { align: 'right'});
+      doc.text('Цол, зэрэг:', x, y+s*5, { align: 'right'});
+      doc.text('Ангилал:', x, y+s*6, { align: 'right'});
+      doc.text('Эрүүл мэнд:', x, y+s*8, { align: 'right'});
+
+      doc.setFontSize(10);
+      doc.setTextColor(0);
+      x = cardX+58;
+      doc.text(profile.registry, x, y);
+      doc.text(profile.lastName, x, y+s);
+      doc.text(profile.firstName, x, y+s*2);
+      doc.text(profile.age.toString(), x, y+s*3);
+      doc.text(profile.gender == 'Эм' ? 'Эмэгтэй' : 'Эрэгтэй', x, y+s*4);
+      doc.text(profile.rank, x, y+s*5);
+      doc.text(profile.rangeTitles.join(', '), x, y+s*6, { maxWidth: 25});
+      doc.text(profile.health, x, y+s*8);
+    });
+
+    doc.save('application.pdf');
   }
 
 

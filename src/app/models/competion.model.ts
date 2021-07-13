@@ -1,10 +1,12 @@
 export interface Competition {
   id?: string;
   name: string;
+  shortName: string;
   typeId: string;
   type: string;
   startDate: any;
   endDate: any;
+  dateRange: string;
   place: string;
   organizer: string;
   isJunior: boolean;
